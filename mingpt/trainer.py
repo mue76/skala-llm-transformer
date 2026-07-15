@@ -5,6 +5,9 @@ Andrej Karpathy의 minGPT(MIT License) trainer를 핵심 로직 변경 없이
 - 원본: https://github.com/karpathy/minGPT
 - 변경점: CfgNode 설정 → dataclass, set_seed 포함,
   옵티마이저 구성 함수를 이 파일로 이동 (로직 동일)
+- LSTM 지원: configure_optimizers의 weight decay 분류에 nn.LSTM 분기 추가
+  (weight_* → decay, bias_* → no_decay). 
+  Transformer/LSTM 노트북이 이 Trainer를 공유할 수 있게 한다.
 """
 
 import time
