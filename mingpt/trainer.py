@@ -57,6 +57,9 @@ def configure_optimizers(model, config):
                 decay.add(fpn)
             elif pn.endswith("weight") and isinstance(m, blacklist_weight_modules):
                 no_decay.add(fpn)
+            elif isinstance(m, torch.nn.LSTM):
+                # LSTM 파라미터: weight_*는 decay, bias_*는 no_decay
+                (decay if pn.startswith("weight") else no_decay).add(fpn)
 
     param_dict = {pn: p for pn, p in model.named_parameters()}
     inter_params = decay & no_decay
